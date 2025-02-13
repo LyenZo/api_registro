@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 const connection = require('./db');
 
-// Obtener todos los registros
+// Obtener todos los registros de usuario
 router.get('/registros', (req, res) => {
-  connection.query('SELECT * FROM tb_alumnos', (err, results) => {
+  connection.query('SELECT * FROM usuario', (err, results) => {
     if (err) {
       console.error('Error al obtener registros:', err);
       res.status(500).json({ error: 'Error al obtener registros' });
@@ -15,10 +15,10 @@ router.get('/registros', (req, res) => {
   });
 });
 
-// Obtener un registro por su ID
-router.get('/registros/:id', (req, res) => {
-    const id = req.params.id;
-    connection.query('SELECT * FROM tb_alumnos WHERE id = ?', id, (err, results) => {
+// Obtener un usuario por su ID
+router.get('/registros/:id_usuario', (req, res) => {
+    const id_usuario = req.params.id_usuario;
+    connection.query('SELECT * FROM usuario WHERE id = ?', id_usuario, (err, results) => {
       if (err) {
         console.error('Error al obtener el registro:', err);
         res.status(500).json({ error: 'Error al obtener el registro' });
@@ -32,10 +32,10 @@ router.get('/registros/:id', (req, res) => {
     });
 });
 
-// Crear un nuevo registro
+// Crear un nuevo usuario
 router.post('/registros', (req, res) => {
   const nuevoRegistro = req.body;
-  connection.query('INSERT INTO tb_alumnos SET ?', nuevoRegistro, (err, results) => {
+  connection.query('INSERT INTO usuario SET ?', nuevoRegistro, (err, results) => {
     if (err) {
       console.error('Error al crear un nuevo registro:', err);
       res.status(500).json({ error: 'Error al crear un nuevo registro' });
